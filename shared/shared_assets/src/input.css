@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@source "../../dominickzou.dev/public_html/**/*.html";
+@source "../../dominickzou.dev/public_html/**/*.php";
+@source "../../test.dominickzou.dev/public_html/**/*.html";
+@source "../../test.dominickzou.dev/public_html/**/*.php";
+@source "../../reporting.dominickzou.dev/public_html/**/*.php";
+@source "../../reporting.dominickzou.dev/public_html/views/**/*.php";
+
+@theme {
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-gray-900 font-sans antialiased overflow-x-hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tight font-medium;
+  }
+}
+
+@layer components {
+  /* Minimal UI Elements */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium text-white bg-black hover:bg-gray-800 transition-colors duration-200 rounded-full;
+  }
+  
+  .btn-outline {
+    @apply inline-flex items-center justify-center px-6 py-3 border border-gray-300 text-base font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors duration-200 rounded-full;
+  }
+
+  .nav-link {
+    @apply text-gray-600 hover:text-black transition-colors duration-200 text-sm font-medium;
+  }
+  
+  /* Very spacious layout containers */
+  .container-spacious {
+    @apply max-w-7xl mx-auto px-6 sm:px-12 lg:px-24;
+  }
+
+  /* Avoid "boxes on boxes" - use typography and whitespace to group */
+  .section-spacious {
+    @apply py-24 sm:py-32;
+  }
+}
+
+/* Background Canvas Styling */
+#unified-bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+}

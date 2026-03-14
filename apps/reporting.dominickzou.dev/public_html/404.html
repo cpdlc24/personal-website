@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 | Not Found</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/style.css">
+    <script src="https://collector.dominickzou.dev/collector.js"></script>
+    <script>
+        // Trigger a fake error into telemetry to log 404s in system health tracking
+        window.onerror('404 Not Found: ' + window.location.pathname, window.location.href, 0, 0, new Error('404 Route Not Found'));
+    </script>
+</head>
+<body class="text-gray-900 font-sans antialiased" style="background-color: #e2e8f0;">
+
+    <main class="min-h-screen flex items-center justify-center relative z-10">
+        <div class="text-center max-w-xl mx-auto px-8 py-16">
+            <h1 class="text-8xl font-medium tracking-tight mb-6">404</h1>
+            <h2 class="text-[10px] tracking-widest font-semibold uppercase text-gray-400 mb-8">Void Sector</h2>
+            <p class="text-sm text-gray-400 font-light mb-16 leading-relaxed">
+                The requested query path does not exist in the current spatial index. 
+            </p>
+            <a href="/" class="text-xs uppercase tracking-widest font-semibold border-b-2 border-transparent hover:border-gray-900 transition-colors pb-1">Resync Connection</a>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,366 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Analytics API",
+    "version": "1.0.0",
+    "description": "REST API for managing static, performance, and activity analytics data."
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "Relative path for same-domain requests"
+    }
+  ],
+  "paths": {
+    "/api/static": {
+      "get": {
+        "summary": "Retrieve all static data entries",
+        "tags": [
+          "Static Data"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of static data events"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new static data entry",
+        "tags": [
+          "Static Data"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewEvent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Entry created successfully"
+          },
+          "400": {
+            "description": "Invalid JSON or missing session_id"
+          }
+        }
+      }
+    },
+    "/api/static/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/pathId"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a specific static data entry",
+        "tags": [
+          "Static Data"
+        ],
+        "responses": {
+          "200": {
+            "description": "Entry details"
+          },
+          "404": {
+            "description": "Entry not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a specific static data entry",
+        "tags": [
+          "Static Data"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEvent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Entry updated successfully"
+          },
+          "400": {
+            "description": "Invalid JSON or missing data field"
+          },
+          "404": {
+            "description": "Entry not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a specific static data entry",
+        "tags": [
+          "Static Data"
+        ],
+        "responses": {
+          "200": {
+            "description": "Entry deleted successfully"
+          },
+          "404": {
+            "description": "Entry not found"
+          }
+        }
+      }
+    },
+    "/api/performance": {
+      "get": {
+        "summary": "Retrieve all performance data entries",
+        "tags": [
+          "Performance Data"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of performance data events"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new performance data entry",
+        "tags": [
+          "Performance Data"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewEvent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Entry created successfully"
+          },
+          "400": {
+            "description": "Invalid JSON or missing session_id"
+          }
+        }
+      }
+    },
+    "/api/performance/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/pathId"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a specific performance data entry",
+        "tags": [
+          "Performance Data"
+        ],
+        "responses": {
+          "200": {
+            "description": "Entry details"
+          },
+          "404": {
+            "description": "Entry not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a specific performance data entry",
+        "tags": [
+          "Performance Data"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEvent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Entry updated successfully"
+          },
+          "400": {
+            "description": "Invalid JSON or missing data field"
+          },
+          "404": {
+            "description": "Entry not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a specific performance data entry",
+        "tags": [
+          "Performance Data"
+        ],
+        "responses": {
+          "200": {
+            "description": "Entry deleted successfully"
+          },
+          "404": {
+            "description": "Entry not found"
+          }
+        }
+      }
+    },
+    "/api/activity": {
+      "get": {
+        "summary": "Retrieve all activity data entries",
+        "tags": [
+          "Activity Data"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of activity data events"
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new activity data entry",
+        "tags": [
+          "Activity Data"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewEvent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Entry created successfully"
+          },
+          "400": {
+            "description": "Invalid JSON or missing session_id"
+          }
+        }
+      }
+    },
+    "/api/activity/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/pathId"
+        }
+      ],
+      "get": {
+        "summary": "Retrieve a specific activity data entry",
+        "tags": [
+          "Activity Data"
+        ],
+        "responses": {
+          "200": {
+            "description": "Entry details"
+          },
+          "404": {
+            "description": "Entry not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a specific activity data entry",
+        "tags": [
+          "Activity Data"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateEvent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Entry updated successfully"
+          },
+          "400": {
+            "description": "Invalid JSON or missing data field"
+          },
+          "404": {
+            "description": "Entry not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a specific activity data entry",
+        "tags": [
+          "Activity Data"
+        ],
+        "responses": {
+          "200": {
+            "description": "Entry deleted successfully"
+          },
+          "404": {
+            "description": "Entry not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "pathId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "Numeric ID of the entry",
+        "schema": {
+          "type": "integer"
+        }
+      }
+    },
+    "schemas": {
+      "NewEvent": {
+        "type": "object",
+        "required": [
+          "session_id"
+        ],
+        "properties": {
+          "session_id": {
+            "type": "string",
+            "example": "abc123xyz890"
+          },
+          "page_url": {
+            "type": "string",
+            "example": "/home"
+          },
+          "data": {
+            "type": "object",
+            "description": "JSON object containing the specific metrics",
+            "example": {
+              "key": "value"
+            }
+          }
+        }
+      },
+      "UpdateEvent": {
+        "type": "object",
+        "required": [
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "description": "JSON object replacing the current data column payload",
+            "example": {
+              "updated_key": "new_value"
+            }
+          }
+        }
+      }
+    }
+  }
+}
