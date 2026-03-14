@@ -1,2 +1,2 @@
-# Dominick Zou Web Ecosystem
+# Personal Website
 Monorepo containing portfolios and analytics platforms for dominickzou.dev
