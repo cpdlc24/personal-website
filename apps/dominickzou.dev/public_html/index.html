@@ -4,37 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dominick Zou</title>
-    <meta name="description" content="Software Engineer">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta name="description" content="Software Engineer — Building scalable systems.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
     <link rel="stylesheet" href="assets/style.css">
     <script src="https://collector.dominickzou.dev/collector.js"></script>
+    <link rel="prefetch" href="https://reporting.dominickzou.dev/login">
 </head>
-<body class="bg-white text-gray-900 font-sans antialiased overflow-hidden selection:bg-gray-900 selection:text-white">
-    
-    <!-- Interactive Smoke Canvas (Landing Page Only) -->
-    <script src="assets/landing_smoke.js"></script>
+<body>
 
-    <!-- Ultra-Minimal Navigation Anchors -->
-    <nav class="fixed top-0 w-full z-50 p-8 sm:p-12 text-gray-900">
-        <div class="flex justify-between items-center text-xs tracking-widest uppercase font-medium">
-            <a href="https://test.dominickzou.dev" class="hover:opacity-60 transition-opacity">Work</a>
-            <a href="mailto:contact@dominickzou.dev" class="hover:opacity-60 transition-opacity">Contact</a>
+    <div id="page-content" class="page-home">
+        <canvas id="fluid"></canvas>
+
+        <main>
+            <h1>Dominick Zou</h1>
+            <div class="cta-row">
+                <a href="work.html">View Work</a>
+                <a href="about.html">About Me</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </main>
+
+        <div class="footer-anchor">
+            <a href="https://reporting.dominickzou.dev/login">Analytics</a>
         </div>
-    </nav>
-
-    <!-- Dead Center Focus -->
-    <main class="h-screen w-full flex items-center justify-center relative z-10 pointer-events-none text-white">
-        <h1 class="text-5xl sm:text-7xl md:text-8xl font-medium tracking-tight pointer-events-auto drop-shadow-sm">
-            Dominick Zou
-        </h1>
-    </main>
-
-    <!-- Subtle Footer Analytics Anchor -->
-    <div class="fixed bottom-8 w-full text-center z-50 pointer-events-none text-gray-900">
-        <a href="https://reporting.dominickzou.dev" class="text-[10px] tracking-widest uppercase font-semibold opacity-30 hover:opacity-100 transition-opacity pointer-events-auto">Analytics</a>
     </div>
 
+    <script src="assets/bg_particles.js"></script>
+    <script src="smoke.js"></script>
+    <script src="router.js"></script>
 </body>
 </html>

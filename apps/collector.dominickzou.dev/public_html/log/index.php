@@ -26,6 +26,15 @@ if (!$data || !isset($data['session_id'])) {
     exit('Bad Request: Invalid JSON or missing session_id');
 }
 
+// Normalize domain: dominickzou.dev → www.dominickzou.dev
+if (isset($data['page_url'])) {
+    $data['page_url'] = preg_replace(
+        '#^(https?://)(?:www\.)?dominickzou\.dev#',
+        '$1www.dominickzou.dev',
+        $data['page_url']
+    );
+}
+
 // Database Connection
 $host = '127.0.0.1';
 $dbname = 'nexus_analytics';

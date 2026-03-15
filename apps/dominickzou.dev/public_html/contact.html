@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Dominick Zou</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shared.css">
+    <script src="https://collector.dominickzou.dev/collector.js"></script>
+</head>
+<body>
+
+    <div id="page-content" class="subpage page-contact">
+        <nav>
+            <div class="nav-inner">
+                <a href="/">Dominick Zou</a>
+                <div class="nav-links">
+                    <a href="work.html">Work</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html" class="active">Contact</a>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <div class="contact-form">
+                <h1>Initiate <br> transmission.</h1>
+
+                <form onsubmit="event.preventDefault(); alert('Transmission sequence confirmed.');">
+                    <div class="form-group">
+                        <input type="text" placeholder="Identity Node" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Return Vector (Email)" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Payload Data" rows="1" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Transmit Data</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="assets/bg_particles.js"></script>
+    <script src="smoke.js"></script>
+    <script src="router.js"></script>
+</body>
+</html>
