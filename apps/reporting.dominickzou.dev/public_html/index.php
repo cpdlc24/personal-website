@@ -15,7 +15,18 @@ try {
     die("Database connection failed.");
 }
 
-// Simple RBAC Bouncer
+// ── Role hierarchy helper ───────────────────────────────────────────────────
+function getRoleLevel($role) {
+    $levels = [
+        'super_admin' => 4,
+        'admin'       => 3,
+        'analyst'     => 2,
+        'viewer'      => 1,
+    ];
+    return $levels[$role] ?? 0;
+}
+
+// ── RBAC Bouncer ────────────────────────────────────────────────────────────
 function requireAccess($requiredSection = null) {
     if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
         header('Location: /login');
@@ -23,12 +34,14 @@ function requireAccess($requiredSection = null) {
     }
     
     $role = $_SESSION['role'];
-    if ($role === 'super_admin') {
-        return; // full access
+
+    // Super admin & admin: full page access
+    if ($role === 'super_admin' || $role === 'admin') {
+        return;
     }
     
+    // Viewer: dashboard only, no sub-pages
     if ($role === 'viewer') {
-        // Viewers can only view the main dashboard/saved reports, nothing specific.
         if ($requiredSection !== null && $requiredSection !== 'saved_reports') {
             http_response_code(403);
             require __DIR__ . '/403.html';
@@ -37,9 +50,9 @@ function requireAccess($requiredSection = null) {
         return;
     }
     
+    // Analyst: check section-level access
     if ($role === 'analyst') {
-        // Analysts need specific section access
-        if ($requiredSection !== null && !in_array($requiredSection, $_SESSION['sections'])) {
+        if ($requiredSection !== null && !in_array($requiredSection, $_SESSION['sections'] ?? [])) {
             http_response_code(403);
             require __DIR__ . '/403.html';
             exit();
@@ -53,6 +66,33 @@ function requireAccess($requiredSection = null) {
     exit();
 }
 
+// ── Require minimum role ────────────────────────────────────────────────────
+function requireRole($minRole) {
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+        header('Location: /login');
+        exit();
+    }
+    if (getRoleLevel($_SESSION['role']) < getRoleLevel($minRole)) {
+        http_response_code(403);
+        require __DIR__ . '/403.html';
+        exit();
+    }
+}
+
+// ── Export permission check ─────────────────────────────────────────────────
+function requireExport() {
+    if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+        http_response_code(403);
+        echo json_encode(['error' => 'Forbidden']);
+        exit();
+    }
+    if (empty($_SESSION['can_export'])) {
+        http_response_code(403);
+        echo json_encode(['error' => 'Export not permitted for your role']);
+        exit();
+    }
+}
+
 switch ($request) {
     case '/':
     case '/login':
@@ -61,6 +101,7 @@ switch ($request) {
             exit();
         }
         $error = null;
+        $isAjax = (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest');
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $username = $_POST['username'] ?? '';
             $password = $_POST['password'] ?? '';
@@ -70,10 +111,12 @@ switch ($request) {
             $userRecord = $stmt->fetch(PDO::FETCH_ASSOC);
             
             if ($userRecord && password_verify($password, $userRecord['password_hash'])) {
-                $_SESSION['logged_in'] = true;
-                $_SESSION['user_id'] = $userRecord['id'];
-                $_SESSION['username'] = $userRecord['username'];
-                $_SESSION['role'] = $userRecord['role'];
+                $_SESSION['logged_in']    = true;
+                $_SESSION['user_id']      = $userRecord['id'];
+                $_SESSION['username']     = $userRecord['username'];
+                $_SESSION['role']         = $userRecord['role'];
+                $_SESSION['display_name'] = $userRecord['display_name'] ?? $userRecord['username'];
+                $_SESSION['can_export']   = (bool)$userRecord['can_export'];
                 
                 // Fetch analyst sections
                 $_SESSION['sections'] = [];
@@ -83,9 +126,20 @@ switch ($request) {
                     $_SESSION['sections'] = $secStmt->fetchAll(PDO::FETCH_COLUMN);
                 }
                 
+                if ($isAjax) {
+                    header('Content-Type: application/json');
+                    echo json_encode(['ok' => true]);
+                    exit();
+                }
                 header('Location: /dashboard');
                 exit();
             } else {
+                if ($isAjax) {
+                    header('Content-Type: application/json');
+                    http_response_code(401);
+                    echo json_encode(['ok' => false, 'error' => 'Invalid credentials']);
+                    exit();
+                }
                 $error = "Invalid credentials!";
             }
         }
@@ -107,6 +161,16 @@ switch ($request) {
         require __DIR__ . '/views/activity.php';
         break;
 
+    case '/settings':
+        requireAccess();
+        require __DIR__ . '/views/settings.php';
+        break;
+
+    case '/admin':
+        requireRole('admin');
+        require __DIR__ . '/views/admin.php';
+        break;
+
     case '/api-docs':
         require __DIR__ . '/views/api-docs.php';
         break;
@@ -114,7 +178,7 @@ switch ($request) {
     // Export PDF endpoint handler
     case '/save_pdf.php':
     case '/save_pdf':
-        requireAccess(); 
+        requireExport();
         require __DIR__ . '/save_pdf.php';
         break;
 

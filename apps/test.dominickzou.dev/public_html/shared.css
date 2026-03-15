@@ -1,0 +1,305 @@
+/* ── Global Reset & Base ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #fafafa;
+    color: #111;
+    height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+}
+
+/* ── Page Content Wrapper ── */
+#page-content {
+    position: relative;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 1;
+    transition: opacity 0.18s ease;
+}
+
+/* ── Landing Page (scoped to .page-home) ── */
+.page-home {
+    display: flex;
+    flex-direction: column;
+}
+
+.page-home #fluid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.page-home nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+    padding: 2rem 3rem;
+    pointer-events: none;
+}
+.page-home nav .nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.page-home nav a {
+    color: #111;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    pointer-events: auto;
+}
+.page-home nav a:hover { opacity: 0.5; }
+.page-home .nav-links { display: flex; gap: 2rem; }
+.page-home .nav-links a { opacity: 0.5; }
+.page-home .nav-links a:hover { opacity: 1; }
+
+.page-home main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.page-home h1 {
+    font-size: clamp(3rem, 8vw, 7rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    text-align: center;
+    color: transparent;
+    user-select: none;
+}
+
+.page-home .cta-row {
+    display: flex;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+.page-home .cta-row a {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #111;
+    text-decoration: none;
+    padding-bottom: 2px;
+    border-bottom: 1.5px solid transparent;
+    transition: border-color 0.3s ease, opacity 0.3s ease;
+    pointer-events: auto;
+}
+.page-home .cta-row a:hover {
+    border-bottom-color: #111;
+}
+
+.page-home .footer-anchor {
+    position: fixed;
+    bottom: 2rem;
+    width: 100%;
+    text-align: center;
+    z-index: 50;
+    pointer-events: none;
+}
+.page-home .footer-anchor a {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #111;
+    opacity: 0.2;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    pointer-events: auto;
+}
+.page-home .footer-anchor a:hover { opacity: 0.8; }
+
+@media (max-width: 640px) {
+    .page-home nav { padding: 1.5rem; }
+    .page-home .nav-links { gap: 1.2rem; }
+    .page-home .cta-row { gap: 1.5rem; }
+}
+
+/* ── Subpages (work, about, contact) ── */
+.subpage nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+    padding: 2.5rem 4rem;
+}
+.subpage .nav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.subpage nav a {
+    color: #111;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+.subpage nav a:hover { opacity: 0.5; }
+.subpage .nav-links {
+    display: flex;
+    gap: 2rem;
+}
+.subpage .nav-links a { opacity: 0.5; }
+.subpage .nav-links a:hover { opacity: 1; }
+.subpage .nav-links a.active {
+    opacity: 1;
+    font-weight: 600;
+    border-bottom: 1px solid #111;
+    padding-bottom: 2px;
+    cursor: default;
+}
+
+.subpage main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    z-index: 10;
+}
+
+.subpage h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 3rem;
+}
+
+.subpage .content-block {
+    max-width: 56rem;
+}
+
+/* Work page grid */
+.subpage .project-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+}
+
+.subpage .project-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    opacity: 0.4;
+    font-weight: 600;
+}
+
+.subpage .project-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.subpage .project-desc {
+    font-size: 0.875rem;
+    opacity: 0.6;
+    line-height: 1.7;
+    max-width: 24rem;
+    font-weight: 300;
+}
+
+/* About page */
+.subpage .about-content {
+    max-width: 36rem;
+    text-align: right;
+    margin-left: auto;
+}
+
+.subpage .about-content p {
+    font-size: 0.875rem;
+    opacity: 0.6;
+    line-height: 1.7;
+    font-weight: 300;
+    margin-bottom: 2rem;
+}
+
+/* Contact page form */
+.subpage .contact-form {
+    max-width: 36rem;
+    width: 100%;
+}
+
+.subpage .form-group {
+    margin-bottom: 3rem;
+}
+
+.subpage input,
+.subpage textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    padding: 1rem 0;
+    font-size: 1.25rem;
+    font-family: inherit;
+    color: #111;
+    outline: none;
+    transition: border-color 0.3s ease;
+    resize: none;
+    border-radius: 0;
+}
+
+.subpage input::placeholder,
+.subpage textarea::placeholder {
+    color: #ccc;
+}
+
+.subpage input:focus,
+.subpage textarea:focus {
+    border-bottom-color: #111;
+}
+
+.subpage .submit-btn {
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #111;
+    cursor: pointer;
+    padding-bottom: 4px;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+    margin-top: 2rem;
+}
+
+.subpage .submit-btn:hover {
+    border-bottom-color: #111;
+}
+
+@media (min-width: 768px) {
+    .subpage .project-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .subpage nav { padding: 1.5rem; }
+    .subpage main { padding: 6rem 1.5rem 2rem; }
+    .subpage .nav-links { gap: 1.2rem; }
+    .subpage .about-content { text-align: left; margin-left: 0; }
+}

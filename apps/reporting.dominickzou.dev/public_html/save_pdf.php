@@ -1,9 +1,16 @@
 <?php
 session_start();
 
+// Enforce export permission
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     http_response_code(403);
     echo json_encode(['error' => 'Forbidden']);
+    exit();
+}
+
+if (empty($_SESSION['can_export'])) {
+    http_response_code(403);
+    echo json_encode(['error' => 'Export not permitted for your role']);
     exit();
 }
 

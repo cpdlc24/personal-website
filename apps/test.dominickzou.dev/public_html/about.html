@@ -5,30 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | Dominick Zou</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="shared.css">
     <script src="https://collector.dominickzou.dev/collector.js"></script>
 </head>
-<body class="bg-white text-gray-900 font-sans antialiased selection:bg-gray-200">
-    
+<body>
 
-
-    <nav class="fixed top-0 w-full z-50 p-8 sm:p-12 text-gray-900">
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-6 text-xs tracking-widest uppercase font-medium">
-            <a href="/" class="hover:opacity-60 transition-opacity">Dominick Zou</a>
-            <div class="flex gap-8">
-                <a href="work.html" class="opacity-50 hover:opacity-100 transition-opacity">Work</a>
-                <a href="about.html" class="opacity-100 font-semibold cursor-default border-b border-gray-900 pb-1">About</a>
-                <a href="contact.html" class="opacity-50 hover:opacity-100 transition-opacity">Contact</a>
+    <div id="page-content" class="subpage page-about">
+        <nav>
+            <div class="nav-inner">
+                <a href="/">Dominick Zou</a>
+                <div class="nav-links">
+                    <a href="work.html">Work</a>
+                    <a href="about.html" class="active">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
-    <main class="min-h-screen pt-32 p-8 sm:p-12 lg:p-24 flex items-center justify-end text-gray-900 relative z-10 pointer-events-none">
-        <div class="max-w-xl text-right pointer-events-auto">
-            <h1 class="text-4xl sm:text-6xl font-medium tracking-tight mb-12 leading-tight">
-                Simplicity <br/> as a feature.
-            </h1>
-            <div class="space-y-8 text-sm opacity-60 leading-relaxed font-light">
+        <main>
+            <div class="about-content">
+                <h1>Simplicity <br> as a feature.</h1>
                 <p>
                     I build software that strips away the unnecessary. I believe the best systems are the ones that require the absolute minimum infrastructure to operate flawlessly at scale.
                 </p>
@@ -36,8 +32,11 @@
                     Currently optimizing data paths and interactive interfaces for the distributed web. Based out of San Francisco.
                 </p>
             </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
+    <script src="assets/bg_particles.js"></script>
+    <script src="smoke.js"></script>
+    <script src="router.js"></script>
 </body>
 </html>
