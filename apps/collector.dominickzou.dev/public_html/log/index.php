@@ -35,6 +35,12 @@ if (isset($data['page_url'])) {
     );
 }
 
+// Reject data from internal domains (reporting, collector)
+if (isset($data['page_url']) && preg_match('#^https?://(reporting|collector)\.dominickzou\.dev#', $data['page_url'])) {
+    http_response_code(204);
+    exit();
+}
+
 // Database Connection
 $host = '127.0.0.1';
 $dbname = 'nexus_analytics';

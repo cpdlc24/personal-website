@@ -13,5 +13,6 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            git config --global --add safe.directory /var/www/personal-website
             cd /var/www/personal-website
             git pull origin main
