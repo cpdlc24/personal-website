@@ -2,14 +2,20 @@ name: Promote Test to Production
 on:
   workflow_dispatch:
     inputs:
-      confirm:
-        description: 'Type "yes" to confirm promotion to production'
+      deploy_password:
+        description: 'Enter the deploy password'
         required: true
 jobs:
   promote:
     runs-on: ubuntu-latest
-    if: github.event.inputs.confirm == 'yes'
     steps:
+      - name: Verify deploy password
+        run: |
+          if [ "${{ github.event.inputs.deploy_password }}" != "${{ secrets.DEPLOY_PASSWORD }}" ]; then
+            echo "❌ Invalid deploy password"
+            exit 1
+          fi
+          echo "✅ Password verified"
       - name: Promote test to production
         uses: appleboy/ssh-action@master
         with:
@@ -22,3 +28,4 @@ jobs:
               --exclude='.git' \
               /var/www/personal-website/apps/test.dominickzou.dev/public_html/ \
               /var/www/personal-website/apps/dominickzou.dev/public_html/
+
