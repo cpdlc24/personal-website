@@ -6,6 +6,9 @@
  * Uses seeded PRNG + shared cookie epoch for cross-domain continuity.
  */
 (() => {
+    // Idempotency guard: prevent duplicate initialization
+    if (document.getElementById('bg-particles')) return;
+
     const canvas = document.createElement('canvas');
     canvas.id = 'bg-particles';
     canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;';
@@ -17,9 +20,16 @@
     const HIT_RADIUS = 120;
     const HIT_MULTIPLIER = 0.6;
 
+    // Dark mode detection
+    const darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+    let particleBaseColor = darkMQ.matches ? '240, 240, 250' : '5, 5, 15';
+    darkMQ.addEventListener('change', e => {
+        particleBaseColor = e.matches ? '240, 240, 250' : '5, 5, 15';
+    });
+
     // Seeded PRNG for deterministic particle positions across domains
     function mulberry32(seed) {
-        return function() {
+        return function () {
             seed |= 0; seed = seed + 0x6D2B79F5 | 0;
             let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
             t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
@@ -132,7 +142,7 @@
 
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(25, 25, 45, ${p.alpha})`;
+            ctx.fillStyle = `rgba(${particleBaseColor}, ${p.alpha})`;
             ctx.fill();
         }
 

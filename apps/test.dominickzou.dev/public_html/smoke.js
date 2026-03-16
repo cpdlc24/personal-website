@@ -14,6 +14,11 @@ window.SmokeText = (() => {
     const NAME_GRID = 2;
     const BRACE_GRID = 2;
 
+    // Dark mode detection
+    const darkMQ = window.matchMedia('(prefers-color-scheme: dark)');
+    let isDark = darkMQ.matches;
+    darkMQ.addEventListener('change', e => { isDark = e.matches; });
+
     let W, H, dpr;
     let canvas, ctx;
     let particles = [];
@@ -156,7 +161,7 @@ window.SmokeText = (() => {
 
             ctx.beginPath();
             ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(25, 25, 45, ${p.alpha})`;
+            ctx.fillStyle = isDark ? '#fff' : `rgba(25, 25, 45, ${p.alpha})`;
             ctx.fill();
         }
 
